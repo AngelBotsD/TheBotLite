@@ -47,6 +47,6 @@ const handler = async (m, { conn }) => {
   )
 }
 
-handler.customPrefix = /^(\.menu2|menu2|\.menugrupo|menugrupo)$/i
-handler.command = new RegExp
-export default handler
+handler.customPrefix = /^\.?(menu2|menugrupo)$/i;
+handler.command = new RegExp;
+export default handler;
