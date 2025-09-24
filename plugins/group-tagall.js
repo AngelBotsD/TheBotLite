@@ -8,7 +8,7 @@ const handler = async (m, { conn, participants }) => {
     texto += `┊» 🔊 @${numero}\n`;
   }
 
-  await conn.sendMessage(m.chat, { react: { text: '🔔', key: m.key } });
+  await conn.sendMessage(m.chat, { react: { text: '🔊', key: m.key } });
 
   await conn.sendMessage(m.chat, {
     text: texto,
