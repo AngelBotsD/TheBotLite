@@ -1,7 +1,4 @@
-const handler = async (m, { conn, participants, isAdmin, isOwner }) => {
-  if (!m.isGroup) return;
-  if (!isAdmin && !isOwner) return global.dfail?.('admin', m, conn);
-
+const handler = async (m, { conn, participants }) => {
   const total = participants.length;
   let texto = `*!  MENCION GENERAL  !*\n`;
   texto += `   *PARA ${total} MIEMBROS* 🔊\n\n`;
@@ -23,5 +20,4 @@ handler.customPrefix = /^\.?(todos|tagall)$/i;
 handler.command = new RegExp();
 handler.group = true;
 handler.admin = true;
-
 export default handler;
