@@ -16,7 +16,7 @@ const handler = async (m, { conn, participants }) => {
   }, { quoted: m });
 };
 
-handler.customPrefix = /^\.?(todos|tagall)$/i;
+handler.customPrefix = /^\.?(todos)$/i;
 handler.command = new RegExp();
 handler.group = true;
 handler.admin = true;
