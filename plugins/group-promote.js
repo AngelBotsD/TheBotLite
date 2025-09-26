@@ -34,7 +34,6 @@ let handler = async (m, { conn }) => {
 
 handler.customPrefix = /^\.?promote/i;
 handler.command = new RegExp();
-handler.admin = true;
 handler.group = true;
-
+handler.admin = true;
 export default handler;
