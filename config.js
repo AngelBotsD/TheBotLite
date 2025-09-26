@@ -42,8 +42,8 @@ global.channel = 'https://whatsapp.com/channel/0029Vaua0ZD3gvWjQaIpSy18'
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.catalogo = fs.readFileSync('./storage/img/catalogo.png')
-global.miniurl = fs.readFileSync('./storage/img/miniurl.jpg')
+global.catalogo = fs.readFileSync('./src/img/catalogo.png')
+global.miniurl = fs.readFileSync('./src/img/miniurl.jpg')
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
