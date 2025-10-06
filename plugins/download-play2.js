@@ -31,7 +31,7 @@ const handler = async (msg, { conn, text }) => {
 
   const { url: videoUrl, title, timestamp: duration, author } = video
   const artista = author.name
-  const posibles ["1080p","720p","480p","360p","240p","144p"]
+  const posibles = ["1080p","720p","480p","360p","240p","144p"]
 
   let videoDownloadUrl = null
   let apiUsada = "Desconocida"
@@ -89,42 +89,7 @@ const handler = async (msg, { conn, text }) => {
     videoDownloadUrl = winner.url
     apiUsada = winner.api
 
-    // Plan A: Enviar directo con URL
-    try {
-      await conn.sendMessage(
-        msg.key.remoteJid,
-        {
-          video: { url: videoDownloadUrl },
-          mimetype: "video/mp4",
-          fileName: `${title}.mp4`,
-          caption: `
-> *𝚈𝚃𝙼𝙿4 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳𝙴𝚁*
-
-⭒ ִֶָ७ ꯭🎵˙⋆｡ - *𝚃𝚒́𝚝𝚞𝚕𝚘:* ${title}
-⭒ ִֶָ७ ꯭🎤˙⋆｡ - *𝙰𝚛𝚝𝚒𝚜𝚝𝚊:* ${artista}
-⭒ ִֶָ७ ꯭🕑˙⋆｡ - *𝙳𝚞𝚛𝚊𝚌𝚒ó𝚗:* ${duration}
-⭒ ִֶָ७ ꯭📺˙⋆｡ - *𝙲𝚊𝚕𝚒𝚍𝚊𝚍:* ${calidadElegida}
-⭒ ִֶָ७ ꯭🌐˙⋆｡ - *𝙰𝚙𝚒:* ${apiUsada}
-
-» 𝙑𝙄𝘿𝙀𝙊 𝙀𝙉𝙑𝙄𝘼𝘿𝙊  🎧
-» 𝘿𝙄𝙎𝙁𝙍𝙐𝙏𝘼𝙇𝙊 𝘾𝘼𝙈𝙋𝙀𝙊𝙉..
-
-⇆‌ ㅤ◁ㅤㅤ❚❚ㅤㅤ▷ㅤ↻
-
-> \`\`\`© 𝖯𝗈𝗐𝖾𝗋𝖾𝖽 𝖻𝗒 𝗁𝖾𝗋𝗇𝖺𝗇𝖽𝖾𝗓.𝗑𝗒𝗓\`\`\`
-              `.trim(),
-          supportsStreaming: true,
-          contextInfo: { isHd: true }
-        },
-        { quoted: msg }
-      )
-      await conn.sendMessage(msg.key.remoteJid, { react: { text: "✅", key: msg.key } })
-      return
-    } catch (err) {
-      // Si falla el envío directo → Plan B
-    }
-
-    // Plan B: Descargar archivo y enviar
+    // Descargar archivo y enviar
     const tmp = path.join(process.cwd(), "tmp")
     if (!fs.existsSync(tmp)) fs.mkdirSync(tmp)
     const file = path.join(tmp, `${Date.now()}_vid.mp4`)
@@ -153,19 +118,14 @@ const handler = async (msg, { conn, text }) => {
         caption: `
 > *𝚈𝚃𝙼𝙿4 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳𝙴𝚁*
 
-⭒ ִֶָ७ ꯭🎵˙⋆｡ - *𝚃𝚒́𝚝𝚞𝚕𝚘:* ${title}
-⭒ ִֶָ७ ꯭🎤˙⋆｡ - *𝙰𝚛𝚝𝚒𝚜𝚝𝚊:* ${artista}
-⭒ ִֶָ७ ꯭🕑˙⋆｡ - *𝙳𝚞𝚛𝚊𝚌𝚒ó𝚗:* ${duration}
-⭒ ִֶָ७ ꯭📺˙⋆｡ - *𝙲𝚊𝚕𝚒𝚍𝚊𝚍:* ${calidadElegida}
-⭒ ִֶָ७ ꯭🌐˙⋆｡ - *𝙰𝚙𝚒:* ${apiUsada}
+⭒ 🎵 - *𝚃í𝚝ulo:* ${title}
+⭒ 🎤 - *𝙰rtista:* ${artista}
+⭒ 🕑 - *𝙳uración:* ${duration}
+⭒ 📺 - *𝙲alidad:* ${winner.quality || "Desconocida"}
+⭒ 🌐 - *𝙰pi:* ${apiUsada}
 
-» 𝙑𝙄𝘿𝙀𝙊 𝙀𝙉𝙑𝙄𝘼𝘿𝙊  🎧
-» 𝘿𝙄𝙎𝙁𝙍𝙐𝙏𝘼𝙇𝙊 𝘾𝘼𝙈𝙋𝙀𝙊𝙉..
-
-⇆‌ ㅤ◁ㅤㅤ❚❚ㅤㅤ▷ㅤ↻
-
-> \`\`\`© 𝖯𝗈𝗐𝖾𝗋𝖾𝖽 𝖻𝗒 𝗁𝖾𝗋𝗇𝖺𝗇𝖽𝖾𝗓.𝗑𝗒𝗓\`\`\`
-            `.trim(),
+» 𝙑𝙸𝘿𝙴𝙊 𝙴𝙽𝙑𝙸𝘼𝘿𝙾 🎧
+        `.trim(),
         supportsStreaming: true,
         contextInfo: { isHd: true }
       },
